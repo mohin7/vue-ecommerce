@@ -178,14 +178,29 @@
                             >Products</router-link
                           >
                         </li>
+
                         <li>
                           <a href="#"
                             >Shop<i class="ti-angle-down"></i
                             ><span class="new">New</span></a
                           >
                           <ul class="dropdown">
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
+                            <li>
+                              <router-link
+                                active-class="active"
+                                exact
+                                to="/cart"
+                                >Cart</router-link
+                              >
+                            </li>
+                            <li>
+                              <router-link
+                                active-class="active"
+                                exact
+                                to="/checkout"
+                                >Checkout</router-link
+                              >
+                            </li>
                           </ul>
                         </li>
 
