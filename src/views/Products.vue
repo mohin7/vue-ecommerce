@@ -41,46 +41,15 @@
                     data-toggle="tab"
                     href="#man"
                     role="tab"
-                    >Man</a
+                    >All</a
                   >
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#women" role="tab"
-                    >Woman</a
+                <li class="nav-item" v-for="(category,idx) in categories" :key="idx">
+                  <a class="nav-link" data-toggle="tab" role="tab"
+                    >{{category}}</a
                   >
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#kids" role="tab"
-                    >Kids</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#accessories"
-                    role="tab"
-                    >Accessories</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#essential"
-                    role="tab"
-                    >Essential</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#prices"
-                    role="tab"
-                    >Prices</a
-                  >
-                </li>
+               
               </ul>
               <!--/ End Tab Nav -->
             </div>
@@ -92,14 +61,13 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-12" v-for="(product,idx) in getAllProducts" :key="idx">
                       <div class="single-product">
                         <div class="product-img">
-                          <a href="product-details.html">
+                        <router-link :to="{ name: 'product', params: { id: product.id }}">
                             <img style="max-width: 150px"
                               class="default-img"
                               :src="product.image"
                               alt="#"
                             />
-                            
-                          </a>
+                        </router-link>
                           <div class="button-head">
                             <div class="product-action">
                               <a
@@ -159,11 +127,12 @@ export default {
   components: { Navbar, FooterArea },
   data() {
     return {
-     
+        categories: []
     };
   },
  mounted() {
-        this.fetchAllProducts()
+        this.fetchAllProducts();
+        this.getCategories()
  },
   computed: {
      ...mapGetters([
@@ -177,6 +146,12 @@ export default {
           this.$store.dispatch('setProducts', product.data)
         });
     },
+    getCategories(){
+        axios.get("https://fakestoreapi.com/products/categories")
+        .then((res) => {
+          this.categories = res.data;
+        });
+    }
   },
 };
 </script>
