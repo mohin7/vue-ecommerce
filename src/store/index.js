@@ -5,40 +5,38 @@ export const store = createStore({
   state () {
     return {
       count: 1,
-      todos: [
-            { id: 1, text: '...', done: true },
-            { id: 2, text: '...', done: false },
-            { id: 3, text: '...', done: true },
-        ]
+      allProducts: []
     }
   },
   getters: {
-    doneTodo: state => {
-        return state.todos.filter(todo => todo.done)
+    getAllProducts: state => {
+      return state.allProducts
     },
-    countTodo: (state, getters)=> {
-        return getters.doneTodo.length
-    },
-    findById: (state)=> (id)=>{
-        return state.todos.find(todo=> todo.id==id )
-    }
+    
   },
   mutations: {
-    increment (state) {
-      state.count++
-    },
-    decrement(state){
-        state.count--;
-    },
-    incrementBy(state, payload) {
-        state.count += payload.amount;
+    setProducts(state,payload){
+      state.allProducts = payload
     }
+    // increment (state) {
+    //   state.count++
+    // },
+    // decrement(state){
+    //     state.count--;
+    // },
+    // incrementBy(state, payload) {
+    //     state.count += payload.amount;
+    // }
   },
   actions:{
-      incrementAsync({ commit }) {
-          setTimeout(() => {
-            commit('increment')
-          }, 2000);
+      // incrementAsync({ commit }) {
+      //     setTimeout(() => {
+      //       commit('increment')
+      //     }, 2000);
+      // }
+
+      setProducts({commit}, payload){
+        commit('setProducts', payload)
       }
   }
 })
@@ -48,12 +46,12 @@ export const store = createStore({
 // store.commit('increment')
 
 // console.log(store.state.count) // -> 1
-console.log(store.getters.findById(1)) // -> 1
+// console.log(store.getters.findById(1)) // -> 1
 
-// store.commit('incrementBy', {amount: 23})
-store.commit({
-    type: 'incrementBy',
-    amount: 20
-})
-console.log(store.state.count)
+// // store.commit('incrementBy', {amount: 23})
+// store.commit({
+//     type: 'incrementBy',
+//     amount: 20
+// })
+// console.log(store.state.count)
 
